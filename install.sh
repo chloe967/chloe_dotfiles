@@ -16,7 +16,14 @@ done
 # Create symlinks
 ln -sf "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/zprofile" "$HOME/.zprofile"
-ln -sfn "$DOTFILES_DIR/claude" "$HOME/.claude"
+
+# Symlink Claude Code settings (just the file, not the whole ~/.claude dir)
+mkdir -p "$HOME/.claude"
+if [ -f "$HOME/.claude/settings.json" ] && [ ! -L "$HOME/.claude/settings.json" ]; then
+    echo "Backing up ~/.claude/settings.json -> ~/.claude/settings.json.backup"
+    cp "$HOME/.claude/settings.json" "$HOME/.claude/settings.json.backup"
+fi
+ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 
 # Make greeting executable
 chmod +x "$DOTFILES_DIR/greeting.sh"
@@ -25,6 +32,6 @@ echo ""
 echo "Done! Dotfiles installed:"
 echo "  ~/.zshrc    -> $DOTFILES_DIR/zshrc"
 echo "  ~/.zprofile -> $DOTFILES_DIR/zprofile"
-echo "  ~/.claude   -> $DOTFILES_DIR/claude"
+echo "  ~/.claude/settings.json -> $DOTFILES_DIR/.claude/settings.json"
 echo ""
 echo "Open a new terminal to see your squid!"

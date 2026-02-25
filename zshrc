@@ -70,6 +70,11 @@ alias csp='claude --dangerously-skip-permissions'
 alias dclaude='claude --dangerously-skip-permissions'
 alias cursor-ssh='cursor --remote ssh-remote+ben-gym-ssh /home/ubuntu'
 
-# Greeting
+# Dotfiles directory
 DOTFILES_DIR="$(dirname "$(readlink -f ~/.zshrc)" 2>/dev/null || dirname "$(perl -e 'use Cwd "abs_path"; print abs_path(shift)' ~/.zshrc)")"
+
+# Load secrets (tokens, etc.) - not tracked in git
+[ -f "$DOTFILES_DIR/.secrets" ] && source "$DOTFILES_DIR/.secrets"
+
+# Greeting
 source "$DOTFILES_DIR/greeting.sh"
