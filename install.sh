@@ -27,6 +27,7 @@ ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 
 # Install MCP servers from .claude/mcp/ definitions
 if command -v claude &> /dev/null; then
+    # stdio MCP servers (from .claude/mcp/*.json)
     for mcp_file in "$DOTFILES_DIR/.claude/mcp"/*.json; do
         [ -f "$mcp_file" ] || continue
         server_name="$(basename "$mcp_file" .json)"
@@ -34,6 +35,11 @@ if command -v claude &> /dev/null; then
         claude mcp remove --scope user "$server_name" 2>/dev/null || true
         claude mcp add-json --scope user "$server_name" "$(cat "$mcp_file")"
     done
+
+    # HTTP MCP servers (OAuth-based, require browser auth after install)
+    echo "Adding MCP server: granola"
+    claude mcp remove --scope user granola 2>/dev/null || true
+    claude mcp add granola --transport http https://mcp.granola.ai/mcp --scope user
 else
     echo "  (skipping MCP setup — claude not found)"
 fi
