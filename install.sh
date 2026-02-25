@@ -25,12 +25,18 @@ if [ -f "$HOME/.claude/settings.json" ] && [ ! -L "$HOME/.claude/settings.json" 
 fi
 ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 
-# Symlink Claude Code user config (MCP servers, etc.)
-if [ -f "$HOME/.claude.json" ] && [ ! -L "$HOME/.claude.json" ]; then
-    echo "Backing up ~/.claude.json -> ~/.claude.json.backup"
-    cp "$HOME/.claude.json" "$HOME/.claude.json.backup"
+# Install MCP servers from .claude/mcp/ definitions
+if command -v claude &> /dev/null; then
+    for mcp_file in "$DOTFILES_DIR/.claude/mcp"/*.json; do
+        [ -f "$mcp_file" ] || continue
+        server_name="$(basename "$mcp_file" .json)"
+        echo "Adding MCP server: $server_name"
+        claude mcp remove --scope user "$server_name" 2>/dev/null || true
+        claude mcp add-json --scope user "$server_name" "$(cat "$mcp_file")"
+    done
+else
+    echo "  (skipping MCP setup — claude not found)"
 fi
-ln -sf "$DOTFILES_DIR/.claude.json" "$HOME/.claude.json"
 
 # Make greeting executable
 chmod +x "$DOTFILES_DIR/greeting.sh"
@@ -40,6 +46,6 @@ echo "Done! Dotfiles installed:"
 echo "  ~/.zshrc    -> $DOTFILES_DIR/zshrc"
 echo "  ~/.zprofile -> $DOTFILES_DIR/zprofile"
 echo "  ~/.claude/settings.json -> $DOTFILES_DIR/.claude/settings.json"
-echo "  ~/.claude.json          -> $DOTFILES_DIR/.claude.json"
+echo "  MCP servers             <- $DOTFILES_DIR/.claude/mcp/*.json"
 echo ""
 echo "Open a new terminal to see your squid!"
