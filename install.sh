@@ -16,6 +16,7 @@ done
 # Create symlinks
 ln -sf "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/zprofile" "$HOME/.zprofile"
+ln -sfn "$DOTFILES_DIR/claude" "$HOME/.claude"
 
 # Make greeting executable
 chmod +x "$DOTFILES_DIR/greeting.sh"
@@ -24,5 +25,6 @@ echo ""
 echo "Done! Dotfiles installed:"
 echo "  ~/.zshrc    -> $DOTFILES_DIR/zshrc"
 echo "  ~/.zprofile -> $DOTFILES_DIR/zprofile"
+echo "  ~/.claude   -> $DOTFILES_DIR/claude"
 echo ""
 echo "Open a new terminal to see your squid!"
