@@ -1,0 +1,463 @@
+{
+  "numStartups": 15,
+  "installMethod": "native",
+  "autoUpdates": false,
+  "tipsHistory": {
+    "new-user-warmup": 5,
+    "default-permission-mode-config": 12,
+    "terminal-setup": 12,
+    "memory-command": 2,
+    "theme-command": 2,
+    "status-line": 2,
+    "enter-to-steer-in-relatime": 2,
+    "todo-list": 2,
+    "install-github-app": 12,
+    "install-slack-app": 12,
+    "drag-and-drop-images": 12,
+    "paste-images-mac": 12,
+    "double-esc-code-restore": 12,
+    "continue": 12,
+    "shift-tab": 12,
+    "image-paste": 2,
+    "desktop-app": 2,
+    "web-app": 2,
+    "mobile-app": 2,
+    "guest-passes": 13,
+    "custom-agents": 6,
+    "agent-flag": 6,
+    "permissions": 11,
+    "rename-conversation": 11,
+    "custom-commands": 11
+  },
+  "promptQueueUseCount": 28,
+  "cachedGrowthBookFeatures": {
+    "tengu_oboe": true,
+    "tengu_event_sampling_config": {},
+    "tengu_log_segment_events": false,
+    "tengu_log_datadog_events": true,
+    "tengu_penguins_enabled": true,
+    "tengu_worktree_mode": true,
+    "tengu_mcp_tool_search": true,
+    "tengu_marble_anvil": true,
+    "tengu_tool_pear": false,
+    "tengu_scarf_coffee": false,
+    "tengu_chomp_inflection": true,
+    "tengu_marble_sandcastle": true,
+    "tengu_penguins_off": null,
+    "tengu_streaming_text": false,
+    "tengu_silver_lantern": false,
+    "tengu_birthday_hat": false,
+    "tengu-top-of-feed-tip": {
+      "tip": "",
+      "color": ""
+    },
+    "tengu_mcp_elicitation": false,
+    "tengu_keybinding_customization_release": true,
+    "tengu_post_compact_survey": false,
+    "tengu_copper_lantern": false,
+    "tengu_claudeai_mcp_connectors": true,
+    "tengu_pebble_leaf_prune": false,
+    "tengu_tool_search_unsupported_models": [
+      "haiku"
+    ],
+    "tengu_system_prompt_global_cache": true,
+    "tengu_attribution_header": true,
+    "enhanced_telemetry_beta": false,
+    "tengu_snippet_save": false,
+    "tengu_pr_status_cli": true,
+    "tengu_pid_based_version_locking": true,
+    "tengu_1p_event_batch_config": {
+      "scheduledDelayMillis": 5000,
+      "maxExportBatchSize": 200,
+      "maxQueueSize": 8192
+    },
+    "tengu_slate_nexus": false,
+    "tengu_thinkback": false,
+    "tengu_birch_mist": false,
+    "tengu_vinteuil_phrase": true,
+    "tengu_scratch": false,
+    "tengu_cache_plum_violet": true,
+    "tengu_streaming_tool_execution2": true,
+    "tengu_plan_mode_interview_phase": false,
+    "tengu_fgts": false,
+    "tengu_prompt_cache_1h_config": {
+      "allowlist": [
+        "repl_main_thread*",
+        "sdk"
+      ]
+    },
+    "tengu_crystal_beam": {
+      "budgetTokens": 0
+    },
+    "tengu_session_memory": false,
+    "tengu_bergotte_lantern": false,
+    "tengu_swann_brevity": "control",
+    "tengu_permission_explainer": true,
+    "tengu_destructive_command_warning": false,
+    "tengu_oak_drum": true,
+    "tengu_tool_input_aliasing": false,
+    "tengu_auto_background_agents": false,
+    "tengu_ccr_bridge": true,
+    "tengu_mulberry_fog": false,
+    "tengu_coral_fern": false,
+    "tengu_moth_copse": false,
+    "tengu_coral_whistle": true,
+    "tengu_tst_kx7": false,
+    "tengu_amber_prism": false,
+    "tengu_immediate_model_command": false,
+    "tengu_sm_compact": false,
+    "tengu_compact_cache_prefix": true,
+    "tengu_compact_streaming_retry": false,
+    "tengu_disable_streaming_to_non_streaming_fallback": false,
+    "tengu_disable_bypass_permissions_mode": false
+  },
+  "firstStartTime": "2026-02-23T16:18:40.783Z",
+  "opusProMigrationComplete": true,
+  "sonnet1m45MigrationComplete": true,
+  "userID": "292f302f3a1637b337d79706bf452cbee0cf9363d51e7d2122796c9b529f0d3f",
+  "cachedChromeExtensionInstalled": false,
+  "changelogLastFetched": 1772032807653,
+  "autoUpdatesProtectedForNative": true,
+  "clientDataCache": {
+    "data": {},
+    "timestamp": 1772036368605
+  },
+  "oauthAccount": {
+    "accountUuid": "84e6509e-7ba5-4ba0-afe1-309290748e88",
+    "emailAddress": "chloe@deeptune.com",
+    "organizationUuid": "5e90d953-4446-4af3-afde-f0ff21693bd3",
+    "hasExtraUsageEnabled": false,
+    "billingType": "stripe_subscription",
+    "accountCreatedAt": "2026-02-23T20:26:51.427892Z",
+    "subscriptionCreatedAt": "2026-02-23T20:39:01.239902Z",
+    "displayName": "Chloe"
+  },
+  "claudeCodeFirstTokenDate": "2026-02-23T22:15:45.760445Z",
+  "hasCompletedOnboarding": true,
+  "lastOnboardingVersion": "2.1.50",
+  "projects": {
+    "/Users/chloeloughridge/Desktop/gym": {
+      "allowedTools": [],
+      "mcpContextUris": [],
+      "mcpServers": {},
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": [],
+      "hasTrustDialogAccepted": true,
+      "projectOnboardingSeenCount": 0,
+      "hasClaudeMdExternalIncludesApproved": false,
+      "hasClaudeMdExternalIncludesWarningShown": false,
+      "exampleFiles": [
+        "problems.py",
+        "types.ts",
+        "init_app.py",
+        "generation.py",
+        "uiSlice.ts"
+      ],
+      "exampleFilesGeneratedAt": 1771884963658,
+      "lastCost": 4.386144999999999,
+      "lastAPIDuration": 614638,
+      "lastAPIDurationWithoutRetries": 614583,
+      "lastToolDuration": 112164,
+      "lastDuration": 51638542,
+      "lastLinesAdded": 55,
+      "lastLinesRemoved": 6,
+      "lastTotalInputTokens": 44073,
+      "lastTotalOutputTokens": 25696,
+      "lastTotalCacheCreationInputTokens": 109836,
+      "lastTotalCacheReadInputTokens": 6845004,
+      "lastTotalWebSearchRequests": 0,
+      "lastFpsAverage": 1.77,
+      "lastFpsLow1Pct": 66.57,
+      "lastModelUsage": {
+        "claude-haiku-4-5-20251001": {
+          "inputTokens": 35957,
+          "outputTokens": 6319,
+          "cacheReadInputTokens": 278610,
+          "cacheCreationInputTokens": 40789,
+          "webSearchRequests": 0,
+          "costUSD": 0.14639924999999998
+        },
+        "claude-opus-4-6": {
+          "inputTokens": 8116,
+          "outputTokens": 19377,
+          "cacheReadInputTokens": 6566394,
+          "cacheCreationInputTokens": 69047,
+          "webSearchRequests": 0,
+          "costUSD": 4.239745749999999
+        }
+      },
+      "lastSessionId": "25badd96-26c8-48e5-85fd-9798fc9594ff",
+      "lastSessionMetrics": {
+        "frame_duration_ms_count": 20097,
+        "frame_duration_ms_min": 0.08954099984839559,
+        "frame_duration_ms_max": 78.09016699995846,
+        "frame_duration_ms_avg": 2.1033019194408666,
+        "frame_duration_ms_p50": 1.761979499948211,
+        "frame_duration_ms_p95": 3.3121205502073274,
+        "frame_duration_ms_p99": 16.24497249998152,
+        "pre_tool_hook_duration_ms_count": 106,
+        "pre_tool_hook_duration_ms_min": 0,
+        "pre_tool_hook_duration_ms_max": 4,
+        "pre_tool_hook_duration_ms_avg": 1.169811320754717,
+        "pre_tool_hook_duration_ms_p50": 1,
+        "pre_tool_hook_duration_ms_p95": 2,
+        "pre_tool_hook_duration_ms_p99": 3.950000000000003,
+        "hook_duration_ms_count": 46,
+        "hook_duration_ms_min": 0,
+        "hook_duration_ms_max": 1,
+        "hook_duration_ms_avg": 0.15217391304347827,
+        "hook_duration_ms_p50": 0,
+        "hook_duration_ms_p95": 1,
+        "hook_duration_ms_p99": 1
+      },
+      "hasCompletedProjectOnboarding": true
+    },
+    "/Users/chloeloughridge/git/chloe_dotfiles": {
+      "allowedTools": [],
+      "mcpContextUris": [],
+      "mcpServers": {},
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": [],
+      "hasTrustDialogAccepted": true,
+      "projectOnboardingSeenCount": 2,
+      "hasClaudeMdExternalIncludesApproved": false,
+      "hasClaudeMdExternalIncludesWarningShown": false,
+      "lastCost": 1.1840477499999997,
+      "lastAPIDuration": 109001,
+      "lastAPIDurationWithoutRetries": 108996,
+      "lastToolDuration": 5119,
+      "lastDuration": 361748,
+      "lastLinesAdded": 3,
+      "lastLinesRemoved": 1,
+      "lastTotalInputTokens": 4235,
+      "lastTotalOutputTokens": 3392,
+      "lastTotalCacheCreationInputTokens": 55777,
+      "lastTotalCacheReadInputTokens": 1481141,
+      "lastTotalWebSearchRequests": 0,
+      "lastModelUsage": {
+        "claude-haiku-4-5-20251001": {
+          "inputTokens": 2141,
+          "outputTokens": 127,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.002776
+        },
+        "claude-opus-4-6": {
+          "inputTokens": 2094,
+          "outputTokens": 3265,
+          "cacheReadInputTokens": 1481141,
+          "cacheCreationInputTokens": 55777,
+          "webSearchRequests": 0,
+          "costUSD": 1.1812717499999998
+        }
+      },
+      "lastSessionId": "1173b237-aa50-4d5d-9713-a743976e933f",
+      "lastSessionMetrics": {
+        "frame_duration_ms_count": 1097,
+        "frame_duration_ms_min": 0.1575830000001588,
+        "frame_duration_ms_max": 31.432874999998603,
+        "frame_duration_ms_avg": 2.293907588878716,
+        "frame_duration_ms_p50": 1.4336455000011483,
+        "frame_duration_ms_p95": 11.739726749999104,
+        "frame_duration_ms_p99": 19.555468069996603,
+        "pre_tool_hook_duration_ms_count": 6,
+        "pre_tool_hook_duration_ms_min": 0,
+        "pre_tool_hook_duration_ms_max": 1,
+        "pre_tool_hook_duration_ms_avg": 0.6666666666666666,
+        "pre_tool_hook_duration_ms_p50": 1,
+        "pre_tool_hook_duration_ms_p95": 1,
+        "pre_tool_hook_duration_ms_p99": 1,
+        "hook_duration_ms_count": 1,
+        "hook_duration_ms_min": 0,
+        "hook_duration_ms_max": 0,
+        "hook_duration_ms_avg": 0,
+        "hook_duration_ms_p50": 0,
+        "hook_duration_ms_p95": 0,
+        "hook_duration_ms_p99": 0
+      },
+      "exampleFiles": [
+        "app.js",
+        "index.js",
+        "main.py",
+        "utils.js",
+        "config.js"
+      ],
+      "exampleFilesGeneratedAt": 1772035435117,
+      "lastFpsAverage": 6.19,
+      "lastFpsLow1Pct": 51.06
+    },
+    "/Users/chloeloughridge": {
+      "allowedTools": [],
+      "mcpContextUris": [],
+      "mcpServers": {},
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": [],
+      "hasTrustDialogAccepted": false,
+      "projectOnboardingSeenCount": 0,
+      "hasClaudeMdExternalIncludesApproved": false,
+      "hasClaudeMdExternalIncludesWarningShown": false,
+      "exampleFiles": [],
+      "lastCost": 0.08438399999999999,
+      "lastAPIDuration": 17111,
+      "lastAPIDurationWithoutRetries": 17110,
+      "lastToolDuration": 16962,
+      "lastDuration": 41515,
+      "lastLinesAdded": 0,
+      "lastLinesRemoved": 0,
+      "lastTotalInputTokens": 2628,
+      "lastTotalOutputTokens": 746,
+      "lastTotalCacheCreationInputTokens": 5434,
+      "lastTotalCacheReadInputTokens": 61303,
+      "lastTotalWebSearchRequests": 0,
+      "lastFpsAverage": 12.29,
+      "lastFpsLow1Pct": 388.58,
+      "lastModelUsage": {
+        "claude-haiku-4-5-20251001": {
+          "inputTokens": 2590,
+          "outputTokens": 83,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "webSearchRequests": 0,
+          "costUSD": 0.0030050000000000003
+        },
+        "claude-opus-4-6": {
+          "inputTokens": 38,
+          "outputTokens": 663,
+          "cacheReadInputTokens": 61303,
+          "cacheCreationInputTokens": 5434,
+          "webSearchRequests": 0,
+          "costUSD": 0.08137899999999999
+        }
+      },
+      "lastSessionId": "415b889e-7bf9-44cd-a249-0d783e55d3c8",
+      "lastSessionMetrics": {
+        "frame_duration_ms_count": 507,
+        "frame_duration_ms_min": 0.19016599999997652,
+        "frame_duration_ms_max": 5.127207999999882,
+        "frame_duration_ms_avg": 0.851903226824365,
+        "frame_duration_ms_p50": 0.6842499999984284,
+        "frame_duration_ms_p95": 1.7440919999986362,
+        "frame_duration_ms_p99": 2.571204999999909,
+        "pre_tool_hook_duration_ms_count": 6,
+        "pre_tool_hook_duration_ms_min": 0,
+        "pre_tool_hook_duration_ms_max": 2,
+        "pre_tool_hook_duration_ms_avg": 0.8333333333333334,
+        "pre_tool_hook_duration_ms_p50": 1,
+        "pre_tool_hook_duration_ms_p95": 1.75,
+        "pre_tool_hook_duration_ms_p99": 1.9500000000000002,
+        "hook_duration_ms_count": 4,
+        "hook_duration_ms_min": 0,
+        "hook_duration_ms_max": 1,
+        "hook_duration_ms_avg": 0.25,
+        "hook_duration_ms_p50": 0,
+        "hook_duration_ms_p95": 0.8499999999999996,
+        "hook_duration_ms_p99": 0.9699999999999998
+      }
+    }
+  },
+  "githubRepoPaths": {
+    "deeptuneai/gym": [
+      "/Users/chloeloughridge/Desktop/gym"
+    ],
+    "chloe967/chloe_dotfiles": [
+      "/Users/chloeloughridge/git/chloe_dotfiles"
+    ]
+  },
+  "lastReleaseNotesSeen": "2.1.56",
+  "hasShownOpus46Notice": {
+    "5e90d953-4446-4af3-afde-f0ff21693bd3": true
+  },
+  "effortCalloutDismissed": true,
+  "penguinModeOrgEnabled": false,
+  "groveConfigCache": {
+    "84e6509e-7ba5-4ba0-afe1-309290748e88": {
+      "grove_enabled": true,
+      "timestamp": 1772032806678
+    }
+  },
+  "cachedExtraUsageDisabledReason": "org_level_disabled",
+  "passesEligibilityCache": {
+    "5e90d953-4446-4af3-afde-f0ff21693bd3": {
+      "eligible": true,
+      "referral_code_details": {
+        "code": "yJC-s35Xhg",
+        "campaign": "claude_code_guest_pass",
+        "referral_link": "https://claude.ai/referral/yJC-s35Xhg"
+      },
+      "referrer_reward": null,
+      "remaining_passes": 3,
+      "timestamp": 1772032808396
+    }
+  },
+  "officialMarketplaceAutoInstallAttempted": true,
+  "officialMarketplaceAutoInstalled": true,
+  "lastPlanModeUse": 1772032850256,
+  "passesUpsellSeenCount": 2,
+  "hasVisitedPasses": false,
+  "passesLastSeenRemaining": 3,
+  "toolUsage": {
+    "Bash": {
+      "usageCount": 99,
+      "lastUsedAt": 1772036365950
+    },
+    "Read": {
+      "usageCount": 55,
+      "lastUsedAt": 1772035661732
+    },
+    "Task": {
+      "usageCount": 7,
+      "lastUsedAt": 1772036205588
+    },
+    "AskUserQuestion": {
+      "usageCount": 3,
+      "lastUsedAt": 1772033161194
+    },
+    "Write": {
+      "usageCount": 16,
+      "lastUsedAt": 1772035590586
+    },
+    "ExitPlanMode": {
+      "usageCount": 3,
+      "lastUsedAt": 1772033293900
+    },
+    "Edit": {
+      "usageCount": 16,
+      "lastUsedAt": 1772035694080
+    },
+    "Glob": {
+      "usageCount": 14,
+      "lastUsedAt": 1772035658778
+    },
+    "Grep": {
+      "usageCount": 6,
+      "lastUsedAt": 1772035974847
+    },
+    "WebFetch": {
+      "usageCount": 7,
+      "lastUsedAt": 1772036187811
+    },
+    "mcp__slack-mcp__slack_search_channels": {
+      "usageCount": 2,
+      "lastUsedAt": 1772036026532
+    },
+    "mcp__slack-mcp__slack_get_channel_history": {
+      "usageCount": 1,
+      "lastUsedAt": 1772036043667
+    }
+  },
+  "mcpServers": {
+    "slack-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@benbroks/slack-mcp-server"
+      ],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "T03DY614WAU"
+      }
+    }
+  }
+}
