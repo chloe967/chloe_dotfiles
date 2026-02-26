@@ -24,6 +24,8 @@ if [ -f "$HOME/.claude/settings.json" ] && [ ! -L "$HOME/.claude/settings.json" 
     cp "$HOME/.claude/settings.json" "$HOME/.claude/settings.json.backup"
 fi
 ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
+ln -sf "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+ln -sfn "$DOTFILES_DIR/.claude/skills" "$HOME/.claude/skills"
 
 # Install MCP servers from .claude/mcp/ definitions
 if command -v claude &> /dev/null; then
@@ -52,6 +54,8 @@ echo "Done! Dotfiles installed:"
 echo "  ~/.zshrc    -> $DOTFILES_DIR/zshrc"
 echo "  ~/.zprofile -> $DOTFILES_DIR/zprofile"
 echo "  ~/.claude/settings.json -> $DOTFILES_DIR/.claude/settings.json"
+echo "  ~/.claude/CLAUDE.md     -> $DOTFILES_DIR/.claude/CLAUDE.md"
+echo "  ~/.claude/skills/       -> $DOTFILES_DIR/.claude/skills/"
 echo "  MCP servers             <- $DOTFILES_DIR/.claude/mcp/*.json"
 echo ""
 echo "Open a new terminal to see your squid!"
