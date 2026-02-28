@@ -69,6 +69,7 @@ alias iosv='cd core/anthropic/ios_mcp/src/ios_app/viewer && npm start'
 alias csp='claude --dangerously-skip-permissions'
 alias dclaude='claude --dangerously-skip-permissions'
 alias cursor-ssh='cursor --remote ssh-remote+ben-gym-ssh /home/ubuntu'
+alias ts='tmux new-session -s'
 
 # Dotfiles directory
 DOTFILES_DIR="$(dirname "$(readlink -f ~/.zshrc)" 2>/dev/null || dirname "$(perl -e 'use Cwd "abs_path"; print abs_path(shift)' ~/.zshrc)")"

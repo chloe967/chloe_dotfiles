@@ -112,16 +112,11 @@ recent meetings, goals, and company context. Example angles:
 
 Do this quietly — report only if you made notable changes:
 
-1. **Start reflection watcher**: Check if the tmux `watcher` session is running
-   (`tmux has-session -t watcher 2>/dev/null`). If not, launch it:
-   `tmux new-session -d -s watcher 'bash ~/git/chloe_dotfiles/reflection-watcher.sh'`
-   This background agent watches Chloe's Obsidian reflections throughout the day
-   and makes targeted improvements to skills and config.
-2. **Update CLAUDE.md**: Scan ~/git/ for structural changes (new repos, new
+1. **Update CLAUDE.md**: Scan ~/git/ for structural changes (new repos, new
    directories). Update the directory tree if anything changed.
-3. **Check for new MCPs/skills**: Look in ~/.claude/ and the dotfiles repo for
+2. **Check for new MCPs/skills**: Look in ~/.claude/ and the dotfiles repo for
    any new configurations. Update CLAUDE.md MCP descriptions if needed.
-4. **Update your own notes**: Write/update ~/git/obsidian/claude/daily_logs/
+3. **Update your own notes**: Write/update ~/git/obsidian/claude/daily_logs/
    with your own entry. Review and optionally update improvement_notes/ with
    anything you've learned about being more effective.
 
