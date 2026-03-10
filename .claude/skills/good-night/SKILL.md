@@ -28,6 +28,9 @@ Collect the day's data from all available sources in parallel:
    notes from ~/git/obsidian/claude/.
 6. **Git activity**: Run `git log --oneline --since="today"` across repos in
    ~/git/ to see what was actually accomplished today.
+7. **Toggl**: Pull today's time entries from Toggl. For each entry, note the
+   project, description, and duration. Flag any long gaps or entries that
+   suggest context-switching or distraction.
 
 ## Phase 2: Synthesize
 
@@ -41,6 +44,11 @@ Abstract the evidence into clear categories:
   time, compute the ratio (actual/estimated). Track Chloe's running "factor of
   delay" over time in ~/git/obsidian/claude/improvement_notes/calibration.md.
   Use this to give better estimates in future morning briefs.
+- **Time audit** — compare Toggl entries against Chloe's priorities table.
+  Identify: (a) time spent on planned work vs. unplanned, (b) longest
+  uninterrupted focus blocks, (c) distraction patterns (frequent short entries,
+  gaps, or entries on non-priority work). Use this to inform the calibration
+  factor.
 
 ## Phase 3: Draft End-of-Day Review
 
@@ -100,9 +108,11 @@ Present a concise end-of-day summary to Chloe:
 2. **Accomplishments** — what got done (with git evidence)
 3. **Learnings** — most important lessons and insights
 4. **Calibration check** — today's factor of delay (est vs actual), trend
-5. **Tomorrow preview** — back-chain from weekly objectives, not just today's
+5. **Time audit** — breakdown of hours by project/category from Toggl, with a
+   note on focus quality (longest deep work block, total distraction time)
+6. **Tomorrow preview** — back-chain from weekly objectives, not just today's
    leftovers. What moves the weekly goals forward most?
-6. **Claude's take** — your honest, opinionated read on what's working, what
+7. **Claude's take** — your honest, opinionated read on what's working, what
    isn't, and what you'd change. Don't be neutral — be a thought partner.
-7. **Draft review** — note that the end-of-day review is drafted in her daily log
-8. **Notes updated** — mention any changes to your own notes or tools
+8. **Draft review** — note that the end-of-day review is drafted in her daily log
+9. **Notes updated** — mention any changes to your own notes or tools
