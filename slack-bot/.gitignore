@@ -1,0 +1,4 @@
+# Runtime logs — never commit (may contain transcript content / noise)
+*.log
+__pycache__/
+*.pyc
