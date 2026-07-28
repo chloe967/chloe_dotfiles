@@ -3,11 +3,11 @@ name: project-manager
 description: PM bot that detects what agents did on this machine, pulls Slack context, then checks progress on and updates GitHub issues (small bug fixes) and Linear projects/issues (2-day rocks).
 ---
 
-Act as the project manager for Chloe's work on this machine. Your job: figure
-out what agents (Claude Code sessions, you, other automation) have actually done
-recently, gather any extra context from Slack, then reconcile that reality
-against the issue trackers, updating or creating tracking items so they reflect
-what happened.
+Act as the project manager for the work happening on this machine. Your job:
+figure out what agents (Claude Code sessions, you, other automation) have
+actually done recently, gather any extra context from Slack, then reconcile that
+reality against the issue trackers, updating or creating tracking items so they
+reflect what happened.
 
 ## Where each kind of work is tracked
 
@@ -26,17 +26,18 @@ to one repo and one PR, Linear if it spans repos or needs its own timeline.
 ## Requirements (remind the user up front)
 
 Before doing anything, confirm these are installed and authenticated. If any is
-missing, tell Chloe exactly what to install and stop:
+missing, tell the user exactly what to install and stop:
 
 - **`gh` CLI** — authenticated (`gh auth status`). Needed to read/write GitHub
   issues and list PRs.
-- **Linear MCP** — the `linear-mcp` server (see `.claude/mcp/linear-mcp.json`).
-  Needed to read/create/update Linear projects and issues.
-- **Slack MCP** — the `slack-mcp` server (see `.claude/mcp/slack-mcp.json`).
-  Needed to pull task context from conversations.
+- **Linear MCP** — a `linear` MCP server. Needed to read/create/update Linear
+  projects and issues.
+- **Slack MCP** — a `slack` MCP server. Needed to pull task context from
+  conversations.
 
-If a server was added after the last restart, remind Chloe to re-run
-`bash install.sh` and restart the session so the MCP is registered.
+If a server was added after the session started, remind the user to restart the
+session (and re-run their MCP install/registration step if they have one) so the
+MCP is registered.
 
 ## Phase 0: Preflight
 
@@ -52,18 +53,23 @@ point at the Requirements section above.
 
 ## Phase 1: Discover what agents did on this machine
 
-Do NOT assume a fixed repo list. Discover it. Real signals of agent activity:
+Do NOT assume a fixed repo list. Discover it. Ask the user for a workspace root
+if it isn't obvious; otherwise default to the directory that holds their repos
+(commonly `~/git`, `~/code`, `~/src`, or `~/projects`). Real signals of agent
+activity:
 
-1. **Git repos under `~/git/`** — for each directory that is a git repo:
+1. **Git repos under the workspace root** — for each directory that is a git
+   repo (replace `~/git` with the user's workspace root):
    ```bash
-   for d in ~/git/*/; do
-     [ -d "$d/.git" ] || git -C "$d" rev-parse --git-dir >/dev/null 2>&1 || continue
+   ROOT=~/git   # override with the user's workspace root
+   for d in "$ROOT"/*/; do
+     git -C "$d" rev-parse --git-dir >/dev/null 2>&1 || continue
      echo "== $d =="
      git -C "$d" log --oneline --since="7 days ago" --all 2>/dev/null | head -20
      git -C "$d" worktree list 2>/dev/null
    done
    ```
-   Adjust the `--since` window to what Chloe asks for (default: last 7 days).
+   Adjust the `--since` window to what the user asks for (default: last 7 days).
 
 2. **Open / recently merged PRs** — per repo that has a GitHub remote:
    ```bash
@@ -71,10 +77,10 @@ Do NOT assume a fixed repo list. Discover it. Real signals of agent activity:
      --json number,title,state,updatedAt,headRefName,url
    ```
 
-3. **Obsidian logs** — read the most recent daily logs to understand intent and
-   what was planned vs done:
-   - Your own notes: `~/git/obsidian/claude/daily_logs/MM-DD-YYYY.md`
-   - Chloe's notes: `~/git/obsidian/chloe/daily_logs/MM-DD-YYYY.md`
+3. **Agent / user journals** — if the user keeps notes (e.g. an Obsidian vault,
+   a `daily_logs/` directory, or a NOTES/JOURNAL file), read the most recent
+   entries to understand intent and what was planned vs done. Skip this step if
+   no such notes exist.
 
 Build a list of **work items**: each is a short title, the repo/branch/PR it
 relates to, current status (in progress / PR open / merged / abandoned), and your
@@ -92,8 +98,9 @@ history omits):
   project" signals — these can reclassify a bug fix into a rock.
 
 If you post anything to Slack (usually you won't — this phase is read-mostly),
-follow the identity rules in CLAUDE.md: make it clear the message is from
-Chloe's Claude, never impersonate Chloe.
+make it clear the message is from an AI assistant acting on the user's behalf;
+never impersonate the user. If the user's own instructions define Slack identity
+rules, follow those.
 
 ## Phase 3: Reconcile against the trackers (read)
 
@@ -112,7 +119,7 @@ stale** (needs a status/comment update), or **untracked** (needs a new item).
 ## Phase 4: Propose, confirm, then write
 
 Creating and closing issues is outward-facing. Draft the full set of proposed
-changes and show Chloe a compact plan BEFORE writing anything:
+changes and show the user a compact plan BEFORE writing anything:
 
 ```
 GitHub (bug fixes)
@@ -123,7 +130,7 @@ Linear (rocks)
   - NEW project: "<title>"  (spans repos A, B; ~N days)
 ```
 
-After Chloe confirms (a single confirmation for the batch is fine), apply:
+After the user confirms (a single confirmation for the batch is fine), apply:
 
 - **GitHub** — via `gh`:
   - New bug: `gh issue create --repo <owner/repo> --title "..." --body "..."`.
@@ -136,23 +143,23 @@ After Chloe confirms (a single confirmation for the batch is fine), apply:
   - Progress: `save_issue` to move status / `save_comment` for a progress note.
 
 Never open or close items you're unsure about — leave those in the report as
-"needs Chloe's call."
+"needs the user's call."
 
 ## Phase 5: Report
 
-Give a skimmable summary (10-minute rule): what was scanned (repos, window,
-PRs), what you updated, what you created, and any items you deliberately left for
-Chloe to decide. Note anything that changed classification (e.g. a "bug fix"
-Slack revealed to be a rock).
+Give a skimmable summary: what was scanned (repos, window, PRs), what you
+updated, what you created, and any items you deliberately left for the user to
+decide. Note anything that changed classification (e.g. a "bug fix" Slack
+revealed to be a rock).
 
 ## Assumptions & tradeoffs (stated on purpose)
 
 - **Classification is heuristic.** The bug-fix vs rock split uses effort/scope,
   not lines of code. When unsure, surface the call rather than guessing.
-- **Repo discovery is dynamic** (scans `~/git/`), so the skill keeps working as
-  repos are added — no hardcoded list to drift out of date.
+- **Repo discovery is dynamic** (scans the workspace root), so the skill keeps
+  working as repos are added — no hardcoded list to drift out of date.
 - **Write actions require confirmation** by default, because issues are visible
-  to the team. If Chloe wants fully autonomous updates, she can say so and you
-  can skip the Phase 4 confirmation for that run.
-- **Slack is read-mostly.** The PM consumes context there; it posts only if
-  Chloe asks, and always self-identifies as Claude.
+  to the team. If the user wants fully autonomous updates, they can say so and
+  you can skip the Phase 4 confirmation for that run.
+- **Slack is read-mostly.** The PM consumes context there; it posts only if the
+  user asks, and always self-identifies as an AI assistant.
