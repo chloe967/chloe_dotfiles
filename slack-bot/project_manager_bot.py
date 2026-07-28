@@ -45,10 +45,17 @@ MENTION_RE = re.compile(r"<@[A-Z0-9]+>")  # strip @-mentions from the request te
 
 def run_skill(request_text, channel, user, thread_ts, client):
     """Run the project-manager skill headless and post the result to the thread."""
+    # IMPORTANT: tell the skill NOT to post to Slack itself. The skill's Slack
+    # MCP is authed with the *global* SLACK_BOT_TOKEN (the chloe_daily_digest
+    # bot), so anything it posts shows up under that identity. Reading Slack for
+    # context is fine; sending is the bot's job so the reply comes from us.
     prompt = (
         f"/project-manager {request_text}\n\n"
-        f"(Invoked from Slack by <@{user}> in channel {channel}. "
-        f"Summarize the result concisely for a Slack message.)"
+        f"(You are running headless as the backend of a Slack bot, invoked by "
+        f"<@{user}> in channel {channel}. Do NOT post to Slack or send any Slack "
+        f"message yourself — reading Slack for context is fine, but return your "
+        f"report as your final text output only; the bot posts it as itself. "
+        f"Keep it concise and formatted for a Slack message.)"
     )
     try:
         # bypassPermissions: no human is here to approve tool calls. The skill
