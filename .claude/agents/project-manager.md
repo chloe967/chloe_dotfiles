@@ -56,7 +56,8 @@ request.
 
 The trigger text still sets:
 
-- Time window. Default 7 days if unspecified.
+- Time window. Default: past 1 day. If that skips a weekend (e.g. today is
+  Monday), extend back through the weekend to Friday.
 - Focus. "what resolved," "what's stalled," "anything new."
 - Linear team or project, if named.
 
