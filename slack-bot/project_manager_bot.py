@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reactive Slack bot: tag it, and it runs the /project-manager skill.
+"""Reactive Slack bot: tag it, and it runs the project-manager agent.
 
 This is NOT a cron job. It is a long-running listener that reacts when a user
 @-mentions the bot in a channel. Socket Mode is used so the box needs no public
@@ -8,7 +8,7 @@ URL or open ports — the script opens an outbound WebSocket to Slack.
 Flow for `@project-manager <request>` in a channel the bot is in:
   1. app_mention event arrives over the socket (Bolt auto-acks it).
   2. Post a quick "on it" message so the user sees it landed.
-  3. A background thread runs the skill headless via `claude -p` and posts the
+  3. A background thread runs the agent headless via `claude -p --agent` and posts the
      result back as a threaded reply. The work runs off the event path because
      it takes minutes.
 
@@ -20,9 +20,9 @@ global SLACK_BOT_TOKEN (the digest bot + Slack MCP) so those keep their identity
 and read scopes. Falls back to SLACK_BOT_TOKEN/SLACK_APP_TOKEN if PM_* are unset.
 Install deps once:  pip install slack_bolt
 
-The skill (/project-manager) owns all PM behavior and knows which MCPs it needs;
-this file is only the Slack<->skill glue. Single source of truth stays in the
-skill, not here.
+The project-manager agent (.claude/agents/project-manager.md) owns all PM
+behavior and knows which MCPs it needs; this file is only the Slack<->agent glue.
+Single source of truth stays in the agent, not here.
 """
 import os
 import re
@@ -43,14 +43,18 @@ app = App(token=BOT_TOKEN)
 MENTION_RE = re.compile(r"<@[A-Z0-9]+>")  # strip @-mentions from the request text
 
 
-def run_skill(request_text, channel, user, thread_ts, client):
-    """Run the project-manager skill headless and post the result to the thread."""
-    # IMPORTANT: tell the skill NOT to post to Slack itself. The skill's Slack
-    # MCP is authed with the *global* SLACK_BOT_TOKEN (the chloe_daily_digest
-    # bot), so anything it posts shows up under that identity. Reading Slack for
-    # context is fine; sending is the bot's job so the reply comes from us.
+def run_agent(request_text, channel, user, thread_ts, client):
+    """Run the project-manager agent headless and post the result to the thread."""
+    # The request text is the user prompt; the PM behavior lives in the
+    # `project-manager` agent (.claude/agents/project-manager.md), loaded via
+    # --agent below. The parenthetical is per-invocation context.
+    #
+    # IMPORTANT: tell the agent NOT to post to Slack itself. Its Slack MCP is
+    # authed with the *global* SLACK_BOT_TOKEN (the chloe_daily_digest bot), so
+    # anything it posts shows up under that identity. Reading Slack for context
+    # is fine; sending is the bot's job so the reply comes from us.
     prompt = (
-        f"/project-manager {request_text}\n\n"
+        f"{request_text}\n\n"
         f"(You are running headless as the backend of a Slack bot, invoked by "
         f"<@{user}> in channel {channel}. Do NOT post to Slack or send any Slack "
         f"message yourself — reading Slack for context is fine, but return your "
@@ -58,12 +62,14 @@ def run_skill(request_text, channel, user, thread_ts, client):
         f"Keep it concise and formatted for a Slack message.)"
     )
     try:
-        # bypassPermissions: no human is here to approve tool calls. The skill
-        # runs gh/Linear/Slack MCP tools, so it needs unattended tool use.
-        # Harden with an --allowedTools allowlist if you want to bound it
-        # (see PROJECT_MANAGER_BOT.md).
+        # --agent project-manager: run the whole headless session AS the PM
+        # agent (its system prompt + Voice). bypassPermissions: no human is here
+        # to approve tool calls, and the agent runs gh/Linear/Slack MCP tools.
+        # Harden with an --allowedTools allowlist to bound it (see
+        # PROJECT_MANAGER_BOT.md).
         proc = subprocess.run(
-            [CLAUDE_BIN, "-p", prompt, "--permission-mode", "bypassPermissions"],
+            [CLAUDE_BIN, "-p", prompt, "--agent", "project-manager",
+             "--permission-mode", "bypassPermissions"],
             capture_output=True, text=True, timeout=RUN_TIMEOUT,
         )
         out = proc.stdout.strip() or proc.stderr.strip() or "(no output)"
@@ -93,7 +99,7 @@ def handle_mention(event, say):
         thread_ts=thread_ts)
 
     threading.Thread(
-        target=run_skill,
+        target=run_agent,
         args=(request_text, channel, user, thread_ts, app.client),
         daemon=True,
     ).start()

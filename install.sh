@@ -6,7 +6,7 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Installing dotfiles from $DOTFILES_DIR"
 
 # Backup existing files (only real files, not existing symlinks)
-for file in .zshrc .zprofile; do
+for file in .zshrc .zprofile .bashrc; do
     if [ -f "$HOME/$file" ] && [ ! -L "$HOME/$file" ]; then
         echo "Backing up ~/$file -> ~/${file}.backup"
         cp "$HOME/$file" "$HOME/${file}.backup"
@@ -16,6 +16,7 @@ done
 # Create symlinks
 ln -sf "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/zprofile" "$HOME/.zprofile"
+ln -sf "$DOTFILES_DIR/bashrc" "$HOME/.bashrc"
 
 # Symlink Claude Code settings (just the file, not the whole ~/.claude dir)
 mkdir -p "$HOME/.claude"
@@ -26,6 +27,7 @@ fi
 ln -sf "$DOTFILES_DIR/.claude/settings.json" "$HOME/.claude/settings.json"
 ln -sf "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 ln -sfn "$DOTFILES_DIR/.claude/skills" "$HOME/.claude/skills"
+ln -sfn "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
 
 # Install MCP servers from .claude/mcp/ definitions
 if command -v claude &> /dev/null; then
@@ -53,9 +55,11 @@ echo ""
 echo "Done! Dotfiles installed:"
 echo "  ~/.zshrc    -> $DOTFILES_DIR/zshrc"
 echo "  ~/.zprofile -> $DOTFILES_DIR/zprofile"
+echo "  ~/.bashrc   -> $DOTFILES_DIR/bashrc"
 echo "  ~/.claude/settings.json -> $DOTFILES_DIR/.claude/settings.json"
 echo "  ~/.claude/CLAUDE.md     -> $DOTFILES_DIR/.claude/CLAUDE.md"
 echo "  ~/.claude/skills/       -> $DOTFILES_DIR/.claude/skills/"
+echo "  ~/.claude/agents/       -> $DOTFILES_DIR/.claude/agents/"
 echo "  MCP servers             <- $DOTFILES_DIR/.claude/mcp/*.json"
 echo ""
 echo "Open a new terminal to see your squid!"

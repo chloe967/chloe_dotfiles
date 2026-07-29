@@ -1,6 +1,6 @@
 # project-manager Slack bot
 
-Tag the bot in a channel and it runs the `/project-manager` skill, then posts the
+Tag the bot in a channel and it runs the `project-manager` agent, then posts the
 result back in-thread. Reactive (Socket Mode), not a cron.
 
 - `project_manager_bot.py` — the reactive listener (`app_mention` → `claude -p`).
@@ -9,7 +9,7 @@ result back in-thread. Reactive (Socket Mode), not a cron.
 
 ## Architecture in one line
 
-`@bot ...` → `app_mention` over Socket Mode → background `claude -p "/project-manager ..."` → reply in thread.
+`@bot ...` → `app_mention` over Socket Mode → background `claude -p "..." --agent project-manager` → reply in thread.
 Socket Mode = outbound WebSocket, so this box needs no public URL or open port.
 
 ## Slack app setup (one-time, in the browser)
@@ -57,7 +57,7 @@ Then in Slack: `@your-bot check acme/api and the Platform team for the last week
   do, replace it with an allowlist, e.g.
   `--allowedTools "Bash(gh:*)" "mcp__linear__*" "mcp__slack__*" Read`.
 - **The bot posts as itself** (an AI assistant), never as the person who tagged
-  it — matches the identity rule in the skill.
+  it — matches the identity rule in the agent.
 - **Long runs**: work happens in a background thread with a 30-min ceiling
   (`PM_BOT_TIMEOUT`); the result is a threaded reply so channels stay clean.
 - **Slash command instead of a tag?** Same backend — swap the `@app.event
