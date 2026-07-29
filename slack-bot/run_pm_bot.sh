@@ -3,10 +3,12 @@
 #
 # This is not a scheduler. The bot reacts to @-mentions in real time, so it must
 # stay running to catch them. This wrapper just (re)starts the listener if it
-# crashes. Cron is optional and only used to start it at boot, e.g.:
-#   @reboot /home/ubuntu/git/chloe_dotfiles/slack-bot/run_pm_bot.sh >> \
-#     /home/ubuntu/git/chloe_dotfiles/slack-bot/pm_bot.log 2>&1
-# (Start it by hand the first time; the @reboot line just survives reboots.)
+# crashes.
+#
+# NOT the normal way to run Rocky anymore: rocky.service (systemd user unit)
+# supervises him and survives reboots, which this wrapper cannot do on its own.
+# Keep this for ad-hoc foreground runs only, and stop the service first
+# (`systemctl --user stop rocky`) or two listeners will double-reply to mentions.
 set -uo pipefail
 
 DIR="/home/ubuntu/git/chloe_dotfiles/slack-bot"
