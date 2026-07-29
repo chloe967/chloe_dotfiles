@@ -19,7 +19,7 @@ Socket Mode = outbound WebSocket, so this box needs no public URL or open port.
 2. **Enable Socket Mode**: *Settings → Socket Mode → Enable*. This generates an
    **app-level token** (`xapp-...`) with scope `connections:write`. Copy it.
 3. **Bot scopes**: *Features → OAuth & Permissions → Scopes → Bot Token Scopes*,
-   add: `app_mentions:read`, `chat:write` (and `channels:history`,
+   add: `app_mentions:read`, `chat:write`, `reactions:write` (and `channels:history`,
    `groups:history` if you also want the earlier slash-command/digest flows).
 4. **Event Subscriptions**: *Features → Event Subscriptions → Enable*. Under
    *Subscribe to bot events* add **`app_mention`**. (No Request URL needed —

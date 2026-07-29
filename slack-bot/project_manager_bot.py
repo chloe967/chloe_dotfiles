@@ -7,13 +7,14 @@ URL or open ports — the script opens an outbound WebSocket to Slack.
 
 Flow for `@project-manager <request>` in a channel the bot is in:
   1. app_mention event arrives over the socket (Bolt auto-acks it).
-  2. Post a quick "on it" message so the user sees it landed.
+  2. React with 👀 (eyes) on the mention so the user sees it landed.
   3. A background thread runs the agent headless via `claude -p --agent` and posts the
      result back as a threaded reply. The work runs off the event path because
      it takes minutes.
 
 Requires in the environment (sourced from ~/git/chloe_dotfiles/.secrets):
-  PM_SLACK_BOT_TOKEN   xoxb-...  bot token; scopes: app_mentions:read, chat:write
+  PM_SLACK_BOT_TOKEN   xoxb-...  bot token; scopes: app_mentions:read, chat:write,
+                                 reactions:write
   PM_SLACK_APP_TOKEN   xapp-...  app-level token; scope: connections:write
 These are dedicated to the `codingprojectmanager` app and kept separate from the
 global SLACK_BOT_TOKEN (the digest bot + Slack MCP) so those keep their identity
@@ -85,18 +86,20 @@ def run_agent(request_text, channel, user, thread_ts, client):
 
 
 @app.event("app_mention")
-def handle_mention(event, say):
+def handle_mention(event):
     # Strip the bot's own @-mention; the rest is the request/scope.
     request_text = MENTION_RE.sub("", event.get("text", "")).strip()
-    scope = request_text or "the last 7 days"
     channel = event["channel"]
     user = event.get("user", "")
     # Thread under the mention if it's already in a thread, else start one on it.
     thread_ts = event.get("thread_ts") or event["ts"]
 
-    say(text=f":robot_face: On it, <@{user}> — running the project manager for "
-             f"`{scope}`. I'll post results in this thread shortly.",
-        thread_ts=thread_ts)
+    # Acknowledge with a 👀 reaction on the mention itself instead of a message.
+    # Needs the reactions:write scope. Don't let an ack failure kill the run.
+    try:
+        app.client.reactions_add(channel=channel, timestamp=event["ts"], name="eyes")
+    except Exception as e:
+        print(f"[pm-bot] reactions_add failed: {e}", flush=True)
 
     threading.Thread(
         target=run_agent,
