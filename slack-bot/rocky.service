@@ -1,0 +1,50 @@
+# systemd *user* unit for Rocky, the project-manager Slack bot.
+#
+# Install:  bash ~/git/chloe_dotfiles/install.sh   (symlinks this into
+#           ~/.config/systemd/user/ and enables it)
+# Status:   systemctl --user status rocky
+# Logs:     journalctl --user -u rocky -f
+#
+# Requires lingering to be on for this user, otherwise the user manager (and so
+# this service) is torn down when the last login session ends and does not come
+# back at boot:  loginctl enable-linger ubuntu
+[Unit]
+Description=Rocky - project-manager Slack bot (Socket Mode listener)
+Documentation=file:///home/ubuntu/git/chloe_dotfiles/slack-bot/PROJECT_MANAGER_BOT.md
+# Socket Mode is an outbound WebSocket, so don't bother starting before the
+# network is up. This only orders startup; Restart= handles a network that
+# drops later.
+After=network-online.target
+Wants=network-online.target
+# Don't hammer Slack if we're in a crash loop (e.g. a revoked token): more than
+# 5 restarts in 5 min and systemd gives up, leaving the unit `failed` so
+# `systemctl --user status rocky` shows a real error instead of silent flapping.
+# These two live in [Unit], not [Service]; systemd ignores them in [Service].
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/git/chloe_dotfiles/slack-bot/rocky.sh
+
+# Always come back: clean exit, crash, OOM kill, or a dropped socket all restart.
+Restart=always
+RestartSec=5s
+
+# The bot shells out to `claude` by absolute path, but the agent it spawns runs
+# git/gh/etc, so give it a sane PATH.
+Environment=PATH=/home/ubuntu/.local/bin:/home/ubuntu/miniconda3/envs/deeptune311/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONUNBUFFERED=1
+
+WorkingDirectory=/home/ubuntu/git/chloe_dotfiles/slack-bot
+# journald is the log of record now; pm_bot.log only covers manual runs.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rocky
+
+# An agent run (claude -p) can take up to PM_BOT_TIMEOUT (30 min). Give in-flight
+# work a chance to finish on stop/restart rather than cutting a report off.
+TimeoutStopSec=60
+
+[Install]
+WantedBy=default.target

@@ -40,13 +40,23 @@ pip install slack_bolt          # into the deeptune311 env
 
 ## Run it
 
+Rocky runs as a systemd **user** service (`rocky.service`, installed by
+`install.sh`). Being a resident listener, it needs supervision that survives
+reboots, crashes and OOM kills, which an `@reboot` cron line does not give you.
+
 ```bash
-bash ~/git/chloe_dotfiles/slack-bot/run_pm_bot.sh   # foreground; Ctrl-C to stop
-# or detached:
-nohup bash ~/git/chloe_dotfiles/slack-bot/run_pm_bot.sh \
-  >> ~/git/chloe_dotfiles/slack-bot/pm_bot.log 2>&1 &
-# survive reboots (optional): add the @reboot line from run_pm_bot.sh via `crontab -e`
+systemctl --user status rocky      # is he up?
+systemctl --user restart rocky     # bounce after editing the bot or the agent
+journalctl --user -u rocky -f      # live logs (the log of record)
 ```
+
+Requires lingering (`loginctl enable-linger $USER`, done by `install.sh`).
+Without it the user manager dies with your last SSH session and nothing comes
+back at boot. Check with `loginctl show-user $USER -p Linger`.
+
+For an ad-hoc run without touching the service, `run_pm_bot.sh` still works
+(foreground, own restart loop, logs to `pm_bot.log`). Stop the service first or
+you get two listeners double-replying to every mention.
 
 Then in Slack: `@your-bot check acme/api and the Platform team for the last week`.
 

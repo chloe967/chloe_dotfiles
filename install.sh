@@ -48,6 +48,25 @@ else
     echo "  (skipping MCP setup — claude not found)"
 fi
 
+# Rocky (project-manager Slack bot) as a systemd *user* service.
+# It's a resident Socket Mode listener, so it needs supervision that survives
+# reboots, crashes and OOM kills. Config lives in slack-bot/rocky.service.
+if command -v systemctl &> /dev/null && systemctl --user show-environment &> /dev/null; then
+    echo "Installing rocky.service (project-manager Slack bot)"
+    # Without lingering, the user manager is torn down with the last login
+    # session and nothing restarts at boot. Non-fatal: needs polkit/sudo on
+    # some hosts, and everything else here still works without it.
+    loginctl enable-linger "$USER" 2>/dev/null \
+        || echo "  (warning: could not enable linger; rocky won't survive logout/reboot)"
+    mkdir -p "$HOME/.config/systemd/user"
+    ln -sf "$DOTFILES_DIR/slack-bot/rocky.service" "$HOME/.config/systemd/user/rocky.service"
+    chmod +x "$DOTFILES_DIR/slack-bot/rocky.sh"
+    systemctl --user daemon-reload
+    systemctl --user enable --now rocky
+else
+    echo "  (skipping rocky.service — no systemd user session)"
+fi
+
 # Make greeting executable
 chmod +x "$DOTFILES_DIR/greeting.sh"
 
@@ -61,5 +80,6 @@ echo "  ~/.claude/CLAUDE.md     -> $DOTFILES_DIR/.claude/CLAUDE.md"
 echo "  ~/.claude/skills/       -> $DOTFILES_DIR/.claude/skills/"
 echo "  ~/.claude/agents/       -> $DOTFILES_DIR/.claude/agents/"
 echo "  MCP servers             <- $DOTFILES_DIR/.claude/mcp/*.json"
+echo "  rocky.service (systemd) <- $DOTFILES_DIR/slack-bot/rocky.service"
 echo ""
 echo "Open a new terminal to see your squid!"
