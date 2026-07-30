@@ -1,0 +1,10 @@
+# Pinned to the versions already proven working in
+# ~/git/claude-google-sheets-mcp/venv, since both servers share one token.json
+# and a google-auth version skew between them would be a confusing way to break
+# token refresh.
+#
+# Note there is no google-auth-oauthlib here on purpose: this server never runs
+# an OAuth flow (see server.py docstring), so it doesn't need the flow library.
+mcp==1.27.0
+google-api-python-client==2.194.0
+google-auth==2.49.2

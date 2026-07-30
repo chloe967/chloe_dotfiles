@@ -1,0 +1,5 @@
+{
+  "type": "stdio",
+  "command": "/home/ubuntu/git/claude-google-sheets-mcp/venv/bin/python",
+  "args": ["-m", "claude_google_sheets.server"]
+}

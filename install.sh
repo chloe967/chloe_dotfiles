@@ -29,6 +29,22 @@ ln -sf "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 ln -sfn "$DOTFILES_DIR/.claude/skills" "$HOME/.claude/skills"
 ln -sfn "$DOTFILES_DIR/.claude/agents" "$HOME/.claude/agents"
 
+# Build venvs for locally-hosted MCP servers before registering them, since the
+# .claude/mcp/*.json files point at venv/bin/python by absolute path. Registering
+# a server whose interpreter doesn't exist yet gives a confusing "failed to
+# connect" rather than an obvious missing-venv error.
+# Deps are read from each server's requirements.txt so this loop never becomes a
+# second, drifting list of packages.
+for server_dir in "$DOTFILES_DIR/mcp-servers"/*/; do
+    [ -f "$server_dir/requirements.txt" ] || continue
+    server_name="$(basename "$server_dir")"
+    if [ ! -x "$server_dir/venv/bin/python" ]; then
+        echo "Creating venv for MCP server: $server_name"
+        python3 -m venv "$server_dir/venv"
+    fi
+    "$server_dir/venv/bin/pip" install -q -r "$server_dir/requirements.txt"
+done
+
 # Install MCP servers from .claude/mcp/ definitions
 if command -v claude &> /dev/null; then
     # stdio MCP servers (from .claude/mcp/*.json)
