@@ -1,0 +1,5 @@
+{
+  "type": "stdio",
+  "command": "/home/ubuntu/git/chloe_dotfiles/mcp-servers/gmail/venv/bin/python",
+  "args": ["/home/ubuntu/git/chloe_dotfiles/mcp-servers/gmail/server.py"]
+}

@@ -128,9 +128,17 @@ Always confirm with Chloe before posting on her behalf.
 List/create/update/delete events, find free time, find meeting times, respond
 to invitations. **Use for:** checking schedule, finding focus blocks, scheduling.
 
-### Gmail (`gmail`)
+### Gmail (`gmail-mcp`)
 Search/read messages and threads, list and create drafts. **Use for:** finding
-email threads, drafting replies. Never send — only create drafts.
+email threads, drafting replies. Never send — only create drafts. (Our own
+server at mcp-servers/gmail/, sharing the Google token with sheets/drive.
+Send is unimplemented by design; don't add it.)
+
+### Ramp (`ramp`)
+Official Ramp remote MCP (https://mcp.ramp.com/mcp, OAuth). Read transactions,
+bills, reimbursements, subscriptions. **Use for:** spend questions, finding
+recurring charges. It inherits Chloe's Ramp permissions; stick to read-style
+queries and confirm before any mutating action (approvals, card locks).
 
 ### Exa (`exa-mcp`)
 Web search and content retrieval. **Use for:** researching topics, finding

@@ -1,0 +1,11 @@
+# Pinned to the versions already proven working in
+# ~/git/claude-google-sheets-mcp/venv and mcp-servers/google-drive, since all
+# three servers share one token.json and a google-auth version skew between
+# them would be a confusing way to break token refresh.
+#
+# No google-auth-oauthlib on purpose: this server never runs an OAuth flow
+# (see server.py docstring). Scope changes go through
+# mcp-servers/google-reconsent.py, which is stdlib-only.
+mcp==1.27.0
+google-api-python-client==2.194.0
+google-auth==2.49.2

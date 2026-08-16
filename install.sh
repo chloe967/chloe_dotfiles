@@ -60,6 +60,10 @@ if command -v claude &> /dev/null; then
     echo "Adding MCP server: granola"
     claude mcp remove --scope user granola 2>/dev/null || true
     claude mcp add granola --transport http https://mcp.granola.ai/mcp --scope user
+
+    echo "Adding MCP server: ramp"
+    claude mcp remove --scope user ramp 2>/dev/null || true
+    claude mcp add ramp --transport http https://mcp.ramp.com/mcp --scope user
 else
     echo "  (skipping MCP setup — claude not found)"
 fi
