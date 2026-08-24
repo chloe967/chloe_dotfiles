@@ -1,0 +1,8 @@
+{
+  "type": "stdio",
+  "command": "/home/ubuntu/git/chloe_dotfiles/mcp-servers/google-drive/venv/bin/python",
+  "args": ["/home/ubuntu/git/chloe_dotfiles/mcp-servers/google-drive/server.py"],
+  "env": {
+    "GOOGLE_CREDENTIALS_DIR": "/home/ubuntu/.config/google-drive-personal"
+  }
+}
