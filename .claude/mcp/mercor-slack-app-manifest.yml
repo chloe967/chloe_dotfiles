@@ -1,0 +1,29 @@
+# Slack app manifest for Chloe's Claude in the MERCOR workspace.
+# Paste at api.slack.com/apps -> Create New App -> From a manifest.
+# Scopes mirror the Deeptune app plus users.profile:read (its absence is why
+# profile lookups fail on the Deeptune token). Read-scopes cover public
+# (channels:*) and private (groups:*) channels; private ones still need a
+# /invite. No im:*/mpim:* on purpose - add them only if DM access is wanted.
+display_information:
+  name: Chloe's Claude
+  description: Chloe's AI assistant (Claude Code via MCP) - reads context, posts clearly-labeled updates
+  background_color: "#4A154B"
+features:
+  bot_user:
+    display_name: chloes-claude
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - channels:read
+      - channels:history
+      - groups:read
+      - groups:history
+      - chat:write
+      - reactions:write
+      - users:read
+      - users.profile:read
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
